@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>car_simulator</name>
+  <name>project_msgs</name>
   <version>0.0.0</version>
-  <description>The car_simulator package</description>
+  <description>The project_msgs package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <maintainer email="jesperek@todo.todo">jesperek</maintainer>
@@ -14,23 +14,13 @@
   <license>TODO</license>
 
   <buildtool_depend>catkin</buildtool_depend>
-
-  <!-- BUILD AND EXPORT DEPENDENCIES -->
   <depend>roscpp</depend>
-  <!-- <depend>rospy</depend> -->
-  <!-- <depend>std_msgs</depend> -->
-  <depend>project_msgs</depend>
 
-  <!-- BUILD DEPENDENCIES -->
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
 
-  <!-- EXPORT DEPENDENCIES -->
-
-  <!-- EXECUTION DEPENDENCIES -->
-  <!-- <exec_depend>project_msgs</exec_depend> -->
-
-  <!-- The export tag contains other, unspecified, tags -->
   <export>
-    <!-- Other tools can request additional information be placed here -->
-
+    <build_type>catkin</build_type>
   </export>
+
 </package>
