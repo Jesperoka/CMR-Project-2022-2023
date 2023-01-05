@@ -1,0 +1,5 @@
+<launch>
+    <!--- Run car_simulator and test_car_simulator ROS node -->
+    <node pkg="car_simulator" type="car_simulator_exec" respawn="false" name="car_simulator_node" output="screen"></node>
+    <node pkg="car_simulator" type="test_car_simulator_exec" respawn="false" name="test_car_simulator_node" output="screen"></node>
+</launch>

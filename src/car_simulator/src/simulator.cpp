@@ -9,7 +9,7 @@ namespace {
 // Assignment helper because ROS messages with many fields are a pain in the ass to assign to.
 project_msgs::tm &assign(project_msgs::tm &tmMsg, const std::chrono::time_point<std::chrono::system_clock> &timeNow) {
     //
-    std::tm tmBuiltIn{};
+    std::tm  tmBuiltIn{};
     time_t   secondsSince1970 = std::chrono::system_clock::to_time_t(timeNow);
     std::tm *tmPtr            = localtime_r(&secondsSince1970, &tmBuiltIn);
 
@@ -35,8 +35,11 @@ const Parameters::Simulator::ModelFunctionPointer selectModel(const int MODEL) {
     // constexpr Parameters::Simulator::InputType(*modelFunctionPointer)() = &SimulatorType::getInput;
 
     switch (MODEL) {
-    case CompatibleModels::BICYCLE_REAR_DRIVE_SINGLE_TRACK_DYNAMIC:
-        return &Models::bicycleRearDriveFrontSteerSingleTrackDynamic<SimulatorType::getInput>;
+    case CompatibleModels::BICYCLE_REAR_DRIVE_SINGLE_TRACK_DYNAMIC_LINEAR_TIRE:
+        return &Models::bicycleRearDriveFrontSteerSingleTrackDynamicLinearTire<SimulatorType::getInput>;
+
+    case CompatibleModels::BICYCLE_REAR_DRIVE_SINGLE_TRACK_DYNAMIC_FIALA_TIRE:
+        &Models::bicycleRearDriveFrontSteerSingleTrackDynamicFialaTire<SimulatorType::getInput>;
 
     case CompatibleModels::BICYCLE_REAR_DRIVE_KINEMATIC:
         return &Models::bicycleRearDriveFrontSteerKinematic<SimulatorType::getInput>;
@@ -136,7 +139,6 @@ template <class Stepper, int ID> void Simulator<Stepper, ID>::run() {
     // Initialize callback processing
     ros::AsyncSpinner asyncSpinner(0);
     asyncSpinner.start();
-    sleep(1.0);
 
     // Initialize the simulator state
     project_msgs::SimulatorStateMessage simulatorStateMessage;
@@ -153,7 +155,7 @@ template <class Stepper, int ID> void Simulator<Stepper, ID>::run() {
         simulatorStateMessage.wallClockTime = assign(simulatorStateMessage.wallClockTime, std::chrono::system_clock::now());
 
         // Approximate real time system evolution. Allows a controller to also have a delay.
-        usleep(Parameters::Simulator::SIMULATION_SLEEP_SECONDS * 1e6);
+        usleep(Parameters::Simulator::SLEEP_SECONDS * 1e6);
     }
 }
 
