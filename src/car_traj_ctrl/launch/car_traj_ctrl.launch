@@ -1,0 +1,5 @@
+<launch>
+    <!--- Run car_simulator and car_traj_ctrl ROS nodes -->
+    <node pkg="car_simulator" type="car_simulator_exec" respawn="false" name="car_simulator_node" output="screen"></node>
+    <node pkg="car_traj_ctrl" type="car_traj_ctrl_exec" respawn="false" name="car_traj_ctrl_node" output="screen"></node>
+</launch>
